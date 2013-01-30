@@ -6,7 +6,7 @@ from kivy.graphics import *
 import random
 
 class Grass(Widget):
-    def draw_grass(self):
+    def update(self):
         with self.canvas:
             #randomly darw grass
             Color(1,1,1)
@@ -16,34 +16,23 @@ class Grass(Widget):
             Color(.2,.8,.2)
             var = .4
             for i in range(2):
-                r,g,b =  .7+random.random()*var,.7+random.random()*var,.7+random.random()*var
+                r,g,b = .7+random.random()*var,.7+random.random()*var,.7+random.random()*var
                 Color(r,g,b)
                 x = w*random.random() - 50
                 y = h*random.random() - 50
                 Rectangle(source='grass.png', pos=(x,y), size=(100,100))
 
-class PongGame(Widget):
+class MyWidget(Widget):
     def update(self, dt):
-#        self.draw_grass()
         with self.canvas:
-            #print "tada"
-            if self.once is False:
-                g = Grass()
-                self.add_widget(Grass())
-                g.draw_grass()
-                self.once = True
-            else:
-                #print "Already drawn"
-                self.children[0].draw_grass()
-#            Rectangle(pos=(random.random()*self.width, random.random()*self.height), size=(50, 50))
+            print dt
         
 
-class PongApp(App):
+class DrawSomethingApp(App):
     def build(self):
-        game = PongGame()
-        game.once = False
-        Clock.schedule_interval(game.update, 1.0/60.0)
-        return game
+        wid1 = MyWidget()
+        #Clock.schedule_interval(game.update, 1.0/60.0)
+        return wid1
 
 if __name__ == '__main__':
-    PongApp().run()
+    DrawSomethingApp().run()
