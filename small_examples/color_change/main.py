@@ -1,8 +1,3 @@
-# See http://kivy.org/docs/guide/events.html
-#
-#
-
-
 import kivy
 kivy.require('1.1.1')
 
@@ -40,20 +35,16 @@ class PongBall(Widget):
     r = NumericProperty(.5)
     g = NumericProperty(.5)
     b = NumericProperty(.5)
-    color_speed = NumericProperty(0)
-    
-    def on_touch_down(self,touch):
-        print "Touched!",touch.x,touch.y
-        self.color_speed += .03
 
 class PongGame(Widget):
+    
     def __init__(self):
         super(PongGame, self).__init__()
         self.frames = 0 
     
     def update(self, *args):
-        red = (.5*(math.sin(self.frames*self.ball.color_speed)+1.0))
-        #print "updated....",self.frames,red
+        red = (.5*(math.sin(self.frames*.1)+1.0))
+        print "updated....",self.frames,red
         self.ball.r = red
         self.ball.center = self.center 
         self.frames += 1
@@ -66,7 +57,6 @@ class PongApp(App):
         game = PongGame()
         Clock.schedule_interval(game.update, 1.0/60.0)#called 1 in 60
         return game
-
-
+    
 if __name__ in ('__android__', '__main__'):
     PongApp().run()
